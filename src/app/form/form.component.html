@@ -1,0 +1,61 @@
+<div class="booking-form">
+  <h2>Забронировать автомобиль</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Имя -->
+    <div class="form-group">
+      <label for="name">Имя:</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Имя"
+        [class.invalid]="isInvalid('name')"
+      />
+      <div *ngIf="form.get('name')?.errors?.['required'] && form.get('name')?.touched" class="error-message">
+        Имя обязательно
+      </div>
+      <div *ngIf="form.get('name')?.errors?.['pattern'] && form.get('name')?.touched" class="error-message">
+        Только буквы и пробелы
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Email"
+        [class.invalid]="isInvalid('email')"
+      />
+      <div *ngIf="form.get('email')?.errors?.['required'] && form.get('email')?.touched" class="error-message">
+        Email обязателен
+      </div>
+      <div *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched" class="error-message">
+        Введите корректный email
+      </div>
+    </div>
+
+    <!-- Телефон с маской -->
+    <div class="form-group">
+      <label for="phone">Телефон:</label>
+      <input
+        type="tel"
+        id="phone"
+        formControlName="phone"
+        mask="+7 (000) 000-00-00"
+        placeholder="+7 (___) ___-__-__"
+        [class.invalid]="isInvalid('phone')"
+      />
+      <div *ngIf="form.get('phone')?.errors?.['required'] && form.get('phone')?.touched" class="error-message">
+        Телефон обязателен
+      </div>
+      <div *ngIf="form.get('phone')?.errors?.['pattern'] && form.get('phone')?.touched" class="error-message">
+        Формат: +7XXXXXXXXXX (10 цифр после +7)
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Забронировать</button>
+  </form>
+</div>
